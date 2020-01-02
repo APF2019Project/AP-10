@@ -21,6 +21,10 @@ public class Bullet {
         return isForward;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public int getPower() {
         return power;
     }
@@ -37,6 +41,14 @@ public class Bullet {
         return bulletType;
     }
 
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
     public void setLocation_x(int location_x) {
         this.location_x = location_x;
     }
@@ -45,37 +57,30 @@ public class Bullet {
         this.location_y = location_y;
     }
 
+    public void setBulletType(String bulletType) {
+        this.bulletType = bulletType;
+    }
+
     public void setForward(boolean forward) {
         isForward = forward;
     }
 
     public void moveForward(ArrayList<Zombie> zombies){
         for (int i = 0 ; i < this.speed ; i++){
-            if (findZombie(location_x + 1 , location_y , zombies) == null) {
-                this.setLocation_x(location_x + 1);
+            if (findZombie(location_x  , location_y + 1 , zombies) == null) {
+                this.setLocation_y(location_y + 1);
             }
-            else {
-                if (findZombie(location_x + 1 , location_y , zombies).getName().contains("Ballon")){
-                    this.setLocation_x(location_x + 1);
-                    if (this.getBulletType().equals("partabeh"))
-                        break;
-                }
-                else{
-                    this.setLocation_x(location_x + 1);
-                    break;
-                }
-            }
+            else
+                break;
         }
     }
     public void moveBackward(ArrayList<Zombie> zombies){
         for (int i = 0 ; i < this.speed ; i++){
-            if (findZombie(location_x - 1 , location_y , zombies) == null) {
-                this.setLocation_x(location_x - 1);
+            if (findZombie(location_x  , location_y - 1 , zombies) == null) {
+                this.setLocation_y(location_y - 1);
             }
-            else {
-                this.setLocation_x(location_x - 1);
+            else
                 break;
-            }
         }
     }
     public Zombie findZombie(int x , int y , ArrayList<Zombie> Zombies){

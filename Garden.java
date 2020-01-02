@@ -5,7 +5,6 @@ public class Garden {
     public Garden(int row, int column){
         this.gardenRow = row;
         this.gardenColumn = column;
-        // every element of this array is like #//#//#//#
         garden = new String[row][column];
         for (int rowCounter = 0 ; rowCounter < row ; rowCounter++){
             for (int columnCounter = 0 ; columnCounter < column ; columnCounter++){

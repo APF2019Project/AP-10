@@ -33,7 +33,7 @@ public class Game {
         //the message for select the game type
         console.printCommand("PoWWWW!!!");
         console.printCommand("Enter the Game name : ");
-        console.printCommand("Day   or  Water  or  Zombie  or PvP");
+        console.printCommand("Day   or  Water  or  Zombie  or Rail or PvP");
         // the game handler will start with getting a command
         scanner.scanCommands();
         String gameName = scanner.getCommand();
@@ -46,18 +46,18 @@ public class Game {
          * @ the game will start in this while with first command
          */
         boolean gameIsContinued = true; // when we want end game this parameter will set "false"
-        // the gameIsFinished in every update checks whether a zombie has reached the house or not
-        while(gameIsContinued && !handler.gameIsFinished){
+        while(gameIsContinued){
             while (!scanner.getCommand().equals("End turn")){
                 // execute the given commands with object game
-                handler.execute(scanner.getCommand(), plants, garden, zombies, console, scanner);
+                handler.execute(scanner.getCommand(), plants, garden, zombies, console, scanner, turn);
                 // this method will print the garden after updating it
-                printGarden(garden.getGarden(), gardenRow, gardenColumn);
                 scanner.scanCommands();
             }
             // update the garden with this method of object game
-            handler.updateGarden(garden , plants , zombies , bullets , lawnMowers ,suns , turn);
+           // handler.updateGarden(garden , plants , zombies , bullets , lawnMowers ,suns , gameIsContinued , turn);
+            printGarden(garden.getGarden(), gardenRow, gardenColumn);
             turn++;
+            console.printCommand("turn is " + turn);
             scanner.scanCommands();
             if (scanner.getCommand().equals("end")){
                 System.out.println("the game is end");

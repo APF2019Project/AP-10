@@ -1,15 +1,22 @@
 import java.util.ArrayList;
 
-import static java.lang.Math.pow;
-
 public class Plant {
+    String[][] garden = new String[6][19];
     private String name;
     private int insertionTurn;// the turn which we plant the flower
     private int health;
     private int bulletPower;//indicate how much is hurt zombies
+
+    public void setLocation_x(int location_x) {
+        this.location_x = location_x;
+    }
+
+    public void setLocation_y(int location_y) {
+        this.location_y = location_y;
+    }
+
     private int location_x;
     private int location_y;
-    private int power = 0;
     private int price;
     private int restTime;
     private int shootPeriod;
@@ -34,25 +41,18 @@ public class Plant {
         return name;
     }
 
+
+    // should has the arraylist of bullets
+
+
     public Plant(String name, int insertionTurn){
         this.name = name;
         this.insertionTurn = insertionTurn;
         setProperties(name);
     }
 
-    public void  hurt(Zombie zombie , ArrayList<Zombie> zombies , int turn){
-        if (this.getName().equals("Tangle Kelp")){
-            zombies.remove(zombie);
-        }
-        else if (this.getName().equals("Potato Mine") && turn - this.getInsertionTurn() >= 2){
-            zombies.remove(zombie);
-        }
-        else {
-            if (zombie.getName().equals("Football Zombie"))
-                zombie.setHealth(zombie.getHealth() - this.power);
-            this.health -= zombie.getPower();
-        }
-
+    public void  hurt(Zombie zombie){
+        this.health -= zombie.getPower();
     }
     public  void shoot(int turn , ArrayList<Bullet>bullets , ArrayList<Zombie> zombies){
         if (name.equals("PeaShooter")){
@@ -134,6 +134,44 @@ public class Plant {
         else if (name.equals("Wall_Nut")){
             //does not shoot
         }
+        else if (name.equals("TangleKelp")){
+            //does not shoot
+        }
+        else if (name.equals("Tall_Nut")){
+            //does not shoot
+        }
+        else if (name.equals("Cattail")){
+            //does not shoot
+        }
+        else if (name.equals("PotatoMine")) {
+            //does not shoot
+        }
+        else if (name.equals("CherryBomb")){
+            //does not shoot
+        }
+        else if (name.equals("Magnet_Shroom")){
+            //does not shoot
+        }
+        else if (name.equals("Sunflower")){
+            //does not shoot
+        }
+        else if (name.equals("TwinSunflower")){
+            //does not shoot
+        }
+        else if (name.equals("Jalapeno")){
+            //does not shoot
+        }
+        if (turn - insertionTurn % shootPeriod == 0 && !name.equals("Threepeater")){
+            for (int i = 0 ; i < this.numOfShoots ; i++){
+                if (name.equals("Scaredy-shroom")){
+              //      bullets.add( new Bullet(this.location_x , this.location_y , this.bulletType , true));
+                }
+              //  else if ()
+
+
+            }
+        }
+
     }
     private void setProperties(String name){
         if (name.equals("PeaShooter")){
@@ -191,7 +229,6 @@ public class Plant {
             this.bulletType = "nokhod";
             this.bulletPower = 1;
             this.numOfShoots = 1;
-            this.power = 1;
 
         }
         else if (name.equals("GatlingPea")){
@@ -238,7 +275,6 @@ public class Plant {
             this.price = 4;
             this.restTime = 5;
             this.health = 3;
-            this.power = 1;
 
         }
         else if (name.equals("Melon_Plut")){
@@ -327,53 +363,101 @@ public class Plant {
             this.health = 0;
 
         }
+
+
     }
-    public void activity(int turn , String name , ArrayList<Zombie> zombies , ArrayList<Sun> suns){
-        if (name.equals("CherryBomb")){
-            zombies.removeIf(this::zombieIsNeighbourOfPlant);
+    public void activity(String name , ArrayList<Zombie> zombies , int turn){
+        if (name.equals("PeaShooter")){
+
+        }
+        else if (name.equals("SnowPea")){
+
+        }
+        else if (name.equals("Cabbage_Plut")){
+
+        }
+        else if (name.equals("Repeater")){
+
+        }
+        else if (name.equals("Threepeater")){
+
+        }
+        else if (name.equals("Cactus")){
+
+        }
+        else if (name.equals("GatlingPea")){
+
+        }
+        else if (name.equals("Scaredy_Shroom")){
+
+        }
+        else if (name.equals("KernelPlut")){
+
+        }
+        else if (name.equals("SplitPea")){
+
+        }
+        else if (name.equals("Explode_O_Nut")){
+
+        }
+        else if (name.equals("Melon_Plut")){
+
+        }
+        else if (name.equals("LilyPad")){
+
+        }
+        else if (name.equals("Winter_Melon")){
+
+        }
+        else if (name.equals("Wall_Nut")){
+
+        }
+        else if (name.equals("TangleKelp")){
+
+        }
+        else if (name.equals("Tall_Nut")){
+
+        }
+        else if (name.equals("Cattail")){
+
+        }
+        else if (name.equals("PotatoMine")) {
+            if (turn - insertionTurn == 1) {
+                //do nothing
+            } else {
+                if (garden[location_x + 1][location_y].contains("Zombie") || garden[location_x][location_y + 1].contains("Zombie") || garden[location_x - 1][location_y].contains("Zombie") || garden[location_x][location_y - 1].contains("Zombie") || garden[location_x + 1][location_y - 1].contains("Zombie") || garden[location_x + 1][location_y + 1].contains("Zombie") || garden[location_x - 1][location_y + 1].contains("Zombie") || garden[location_x - 1][location_y - 1].contains("Zombie")) {
+                    garden[location_x + 1][location_y] = "none";
+                    garden[location_x][location_y + 1] = "none";
+                    garden[location_x - 1][location_y] = "none";
+                    garden[location_x][location_y - 1] = "none";
+                    garden[location_x + 1][location_y - 1] = "none";
+                    garden[location_x + 1][location_y + 1] = "none";
+                    garden[location_x - 1][location_y + 1] = "none";
+                    garden[location_x - 1][location_y - 1] = "none";
+                }
+            }
+        }
+        else if (name.equals("CherryBomb")){
+
         }
         else if (name.equals("Magnet_Shroom")){
 
         }
         else if (name.equals("Sunflower")){
             if (turn - insertionTurn % 2 == 0){
-                suns.add(new Sun());
+                //generate a sun
             }
         }
         else if (name.equals("TwinSunflower")){
             if (turn - insertionTurn % 2 == 0){
-                suns.add(new Sun());
-                suns.add(new Sun());
+                // generate two suns
             }
         }
         else if (name.equals("Jalapeno")){
-            zombies.removeIf(zombie -> zombie.getLocation_x() == location_x);
+
         }
 
     }
-
-    private boolean zombieIsNeighbourOfPlant(Zombie zombie) {
-        if (zombie.getLocation_x() == this.location_x && zombie.getLocation_y() == this.location_y)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x + 1 && zombie.getLocation_y() == this.location_y)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x + 1 && zombie.getLocation_y() == this.location_y + 1)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x  && zombie.getLocation_y() == this.location_y + 1)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x - 1 && zombie.getLocation_y() == this.location_y + 1)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x - 1 && zombie.getLocation_y() == this.location_y)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x - 1 && zombie.getLocation_y() == this.location_y - 1)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x  && zombie.getLocation_y() == this.location_y - 1)
-            return true;
-        else if (zombie.getLocation_x() == this.location_x + 1 && zombie.getLocation_y() == this.location_y - 1)
-            return true;
-        return false;
-    }
-
     public Plant findPlant(String name , ArrayList<Plant> plants){
         for (Plant plant : plants){
             if (plant.getName().equals(name)){
@@ -400,10 +484,7 @@ public class Plant {
         }
         return null;
     }
-    private double distance (int x1 , int y1 , int x2 , int y2){
-        double sqrt = Math.sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
-        return sqrt ;
-    }
+
 
 
 

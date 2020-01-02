@@ -36,9 +36,9 @@ public class LawnMower {
 
     public void killAllZombiesInRow(ArrayList<Zombie> zombies){
         for (Zombie zombie : zombies){
-            if (this.row == zombie.getLocation_y())
+            if (this.row == zombie.getLocation_x())
                 zombies.remove(zombie);
         }
-        this.setIsUsed(true);
+
     }
 }
